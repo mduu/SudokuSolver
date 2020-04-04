@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SudokuSolver.Core.SharedKernel;
+using SudokuSolver.Core.Infrastructure;
 
 namespace SudokuSolver.Core.Domain
 {

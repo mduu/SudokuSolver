@@ -1,5 +1,5 @@
 using System;
-using SudokuSolver.Core.SharedKernel;
+using SudokuSolver.Core.Infrastructure;
 
 namespace SudokuSolverCLI.Infra
 {

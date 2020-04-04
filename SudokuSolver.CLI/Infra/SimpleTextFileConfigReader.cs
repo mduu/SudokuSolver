@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using SudokuSolver.Core.Domain;
-using SudokuSolver.Core.SharedKernel;
+using SudokuSolver.Core.Infrastructure;
 
 namespace SudokuSolverCLI.Infra
 {

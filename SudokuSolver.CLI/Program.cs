@@ -2,7 +2,7 @@
 using System.IO;
 using SimpleInjector;
 using SudokuSolver.Core.Domain;
-using SudokuSolver.Core.SharedKernel;
+using SudokuSolver.Core.Infrastructure;
 using SudokuSolverCLI.Infra;
 
 namespace SudokuSolverCLI

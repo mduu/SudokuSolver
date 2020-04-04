@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using SudokuSolver.Core.SharedKernel;
+using SudokuSolver.Core.Infrastructure;
 
 namespace SudokuSolver.Core.Domain
 {

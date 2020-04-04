@@ -1,4 +1,4 @@
-using SudokuSolver.Core.SharedKernel;
+using SudokuSolver.Core.Infrastructure;
 using Xunit.Abstractions;
 
 namespace SudokuSolver.Tests.Testing

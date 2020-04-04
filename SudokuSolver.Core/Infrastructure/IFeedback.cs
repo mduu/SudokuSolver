@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SudokuSolver.Core.SharedKernel
+namespace SudokuSolver.Core.Infrastructure
 {
     public interface IFeedback
     {

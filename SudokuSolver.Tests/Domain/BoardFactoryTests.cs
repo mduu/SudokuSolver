@@ -1,7 +1,7 @@
 using FakeItEasy;
 using FluentAssertions;
 using SudokuSolver.Core.Domain;
-using SudokuSolver.Core.SharedKernel;
+using SudokuSolver.Core.Infrastructure;
 using Xunit;
 
 namespace SudokuSolver.Tests.Domain

@@ -1,6 +1,6 @@
 using SimpleInjector;
 using SudokuSolver.Core.Domain;
-using SudokuSolver.Core.SharedKernel;
+using SudokuSolver.Core.Infrastructure;
 
 namespace SudokuSolverCLI.Infra
 {
