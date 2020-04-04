@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolverCLI", "SudokuSolverCLI\SudokuSolverCLI.csproj", "{93F8C005-289C-4E15-A2D6-B87BD9FE7A99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver.CLI", "SudokuSolver.CLI\SudokuSolver.CLI.csproj", "{93F8C005-289C-4E15-A2D6-B87BD9FE7A99}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver.Core", "SudokuSolver.Core\SudokuSolver.Core.csproj", "{AB35F3DB-6FBD-49F5-958F-B30DED695A5E}"
 EndProject
