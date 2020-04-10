@@ -69,8 +69,17 @@ namespace SudokuSolver.Core.Domain
 
             public void SetFixedValue(byte initialValue)
             {
+                ClearValue();
                 Value = initialValue;
                 IsFixed = true;
+            }
+
+            public void ClearValue()
+            {
+                Value = null;
+                IsFixed = false;
+                IsError = false;
+                ErrorMessage = null;
             }
 
             public void SetValue(byte finalResult)

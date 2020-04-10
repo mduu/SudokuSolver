@@ -1,0 +1,208 @@
+@page "/sudoku"
+@using SudokuSolver.Core.Domain
+@inject ISolver Solver
+@inject IJSRuntime JSRuntime;
+
+<h1>Sudoku</h1>
+
+<style>
+    .board {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .rowOfSections {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .section {
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .sectionRow {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .cell {
+        border: 1px solid black;
+        width: 40px;
+        height: 40px;
+        padding: 3px 2px 2px 3px;
+    }
+    
+    .cell input {
+        width: 32px;
+        -moz-appearance: textfield;
+    }
+    
+    .cell input::-webkit-outer-spin-button,
+    .cell input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    .cell input {
+        font-weight: bold;
+    }
+    
+    .cell.isCalculated input {
+        font-weight: lighter;
+    }
+    
+    .cell.isError {
+        border-color: red;
+    }
+    
+    .actions
+    {
+        margin-top: 10px;
+    }
+    
+</style>
+        
+<div class="board">
+    @for (var sectionY = 0; sectionY < numberOfSections; sectionY++)
+    {
+        <div class="rowOfSections">
+            @for (var sectionX = 0; sectionX < numberOfSections; sectionX++)
+            {
+                <div class="section">
+                    @for (var cellY = 0; cellY < sectionHeight; cellY++)
+                    {
+                        <div class="sectionRow">
+                            @for (var cellX = 0; cellX < sectionWidth; cellX++)
+                            {
+                                var sx = sectionX;
+                                var sy = sectionY;
+                                var cx = cellX;
+                                var cy = cellY;
+                                var isFixedCell = GetIsCellFixed(sx, sy, cx, cy);
+                                var isErrorCell = GetIsCellError(sx, sy, cx, cy);
+                                var errorMessage = GetCellErrorMessage(sx, sy, cx, cy);
+                                
+                                <div class="cell @(isFixedCell ? "isFixed" : "isCalculated") @(isErrorCell ? "isError" : "")">
+                                    <input
+                                        id="@GetCellId(sectionX, sectionY, cellX, cellY)"
+                                        name="@GetCellId(sectionX, sectionY, cellX, cellY)"
+                                        type="number"
+                                        min="1"
+                                        title="@errorMessage"
+                                        value="@GetCellValue(sectionX, sectionY, cellX, cellY)"
+                                        max="@(sectionWidth * sectionHeight)"
+                                        @oninput="@(e => SetCellValue(sx, sy, cx, cy, e))"/>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<div>
+    Solved in: <label>@duration</label>
+</div>
+
+<div class="actions">
+    <button class="btn btn-primary" @onclick="Solve" disabled="@isActionRunning">Solve now</button>
+    <button class="btn btn-secondary" @onclick="ClearBoard" disabled="@isActionRunning">Clear board</button>
+</div>
+
+@code {
+    private byte numberOfSections = 3;
+    private byte sectionWidth = 3;
+    private byte sectionHeight = 3;
+    private bool isActionRunning = false;
+    private string duration = "";
+    private Board visualBoard;
+
+    protected override async Task OnInitializedAsync()
+    {
+        visualBoard = new Board(numberOfSections, sectionWidth, sectionHeight);
+    }
+    
+    private void Solve()
+    {
+        isActionRunning = true;
+        try
+        {
+            ClearCalculatedBoardValues();
+            
+            var configuration = new SudokuConfiguration
+            {
+                NumberOfSections = numberOfSections,
+                SectionWidth = sectionWidth,
+                SectionHeight = sectionHeight,
+                InitialValues = visualBoard,
+            };
+            
+            var result = Solver.Solve(configuration);
+
+            visualBoard = result.SolvedBoard;
+            duration = $"{result.Duration.TotalMilliseconds} ms";
+            StateHasChanged();
+        }
+        finally
+        {
+            isActionRunning = false;
+        }
+    }
+
+    private void ClearCalculatedBoardValues()
+    {
+        foreach (var cell in visualBoard.GetAllCells().Where(c => !c.IsFixed))
+        {
+            cell.ClearValue();
+        }
+    }
+
+    private void ClearBoard()
+    {
+        foreach (var cell in visualBoard.GetAllCells())
+        {
+            cell.ClearValue();
+        }
+        
+        StateHasChanged();
+    }
+
+    private byte? GetCellValue(in int sectionX, in int sectionY, in int cellX, in int cellY)
+    {
+        var cell = GetCell(sectionX, sectionY, cellX, cellY);
+        return cell.Value;
+    }
+
+    private void SetCellValue(in int sectionX, in int sectionY, in int cellX, in int cellY, ChangeEventArgs args)
+    {
+        var cell = GetCell(sectionX, sectionY, cellX, cellY);
+
+        if (byte.TryParse((string)args.Value, out var value))
+        {
+            cell.SetFixedValue(value);
+        }
+        else
+        {
+            cell.ClearValue();
+        }
+    }
+
+    private bool GetIsCellFixed(in int sectionX, in int sectionY, in int cellX, in int cellY)
+     => GetCell(sectionX, sectionY, cellX, cellY).IsFixed;
+
+    private bool GetIsCellError(in int sectionX, in int sectionY, in int cellX, in int cellY)
+     => GetCell(sectionX, sectionY, cellX, cellY).IsError;
+
+    private string GetCellErrorMessage(in int sectionX, in int sectionY, in int cellX, in int cellY)
+     => GetCell(sectionX, sectionY, cellX, cellY).ErrorMessage;
+
+    private Board.Cell GetCell(in int sectionX, in int sectionY, in int cellX, in int cellY)
+     => visualBoard.Sections[sectionX, sectionY].Cells[cellX, cellY];
+
+    private string GetCellId(int sectionX, int sectionY, int cellX, int cellY)
+        => $"value_{sectionX}_{sectionY}_{cellY}_{cellX}";
+}
