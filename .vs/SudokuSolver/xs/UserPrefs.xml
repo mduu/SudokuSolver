@@ -1,0 +1,40 @@
+﻿<Properties StartupConfiguration="{8899CF1A-E144-458A-B354-295A7611EE9A}|Default">
+  <MonoDevelop.Ide.ItemProperties.SudokuSolver.Mobile.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.D4DBD3F0-556A-4964-88EC-5A9146D519C3" />
+  <MonoDevelop.Ide.ItemProperties.SudokuSolver.CLI PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SodokuSolver.Mobile/SudokuSolver.Mobile/Views/AboutPage.xaml">
+    <Files>
+      <File FileName="SudokuSolver.CLI/Infra/ContainerFactory.cs" Line="21" Column="2" />
+      <File FileName="SodokuSolver.Mobile/SudokuSolver.Mobile/Views/AboutPage.xaml" Line="8" Column="39" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SudokuSolver" expanded="True">
+            <Node name="SudokuSolver.CLI" expanded="True">
+              <Node name="Infra" expanded="True" />
+            </Node>
+            <Node name="SudokuSolver.Mobile" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
+              <Node name="ViewModels" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="AboutPage.xaml" selected="True" />
+              </Node>
+            </Node>
+            <Node name="SudokuSolver.Mobile.iOS" expanded="True">
+              <Node name="Packages" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.SudokuSolver.Mobile.UITests FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
