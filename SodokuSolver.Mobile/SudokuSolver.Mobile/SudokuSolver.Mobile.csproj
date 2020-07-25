@@ -13,4 +13,24 @@
   <ItemGroup>
     <ProjectReference Include="..\..\SudokuSolver.Core\SudokuSolver.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Controls\BoardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\SectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\BoardControl.xaml.cs">
+      <DependentUpon>BoardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\SectionControl.xaml.cs">
+      <DependentUpon>SectionControl.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

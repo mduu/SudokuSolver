@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using SudokuSolver.Core.Domain;
 using Xamarin.Forms;
 
 using SudokuSolver.Mobile.Models;
@@ -12,34 +12,26 @@ namespace SudokuSolver.Mobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        protected IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        protected ISolver Solver => DependencyService.Get<ISolver>();
 
-        bool isBusy = false;
+        private bool isBusy;
+        private string title = string.Empty;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public bool IsBusy
         {
-            get
-            {
-                return isBusy;
-            }
-            set
-            {
-                SetProperty(ref isBusy, value);
-            }
+            get => isBusy;
+            set => SetProperty(ref isBusy, value);
         }
 
-        string title = string.Empty;
         public string Title
         {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                SetProperty(ref title, value);
-            }
+            get => title;
+            set => SetProperty(ref title, value);
         }
-
+        
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName] string propertyName = "",
             Action onChanged = null)
@@ -52,17 +44,11 @@ namespace SudokuSolver.Mobile.ViewModels
             OnPropertyChanged(propertyName);
             return true;
         }
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            changed?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
     }
 }

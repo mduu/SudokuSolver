@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:SudokuSolver.Mobile.Controls;assembly=SudokuSolver.Mobile"
+             mc:Ignorable="d"
+             x:Class="SudokuSolver.Mobile.Views.BoardPage"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Solve" Clicked="Solve_Clicked" Order="Primary" Priority="0" />
+        <ToolbarItem Text="Clear" Clicked="Clear_Clicked" Order="Primary" Priority="1" />
+    </ContentPage.ToolbarItems>
+
+    <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+
+        <StackLayout Padding="5">
+            <controls:BoardControl Board="{Binding Board}" />
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding ShowSolveDetails}">
+                <Label Text="Duration:" />
+                <Label Text="{Binding Duration}" FontAttributes="Bold" />
+            </StackLayout>
+        </StackLayout>
+    </RefreshView>
+</ContentPage>

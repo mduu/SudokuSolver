@@ -26,6 +26,7 @@ namespace SudokuSolver.Mobile.iOS
             Xamarin.Calabash.Start();
 #endif
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
+            global::Xamarin.Forms.Forms.SetFlags("Shapes_Experimental");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
